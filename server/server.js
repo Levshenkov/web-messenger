@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import express from 'express'
 import path from 'path'
 import cors from 'cors'
@@ -7,18 +8,15 @@ import { renderToStaticNodeStream } from 'react-dom/server'
 import React from 'react'
 
 import cookieParser from 'cookie-parser'
+import passport from 'passport'
+import jwt from 'jsonwebtoken'
 import mongooseService from './services/mongoose'
+import passportJWT from './services/passport'
 import User from './model/user.model'
 import config from './config'
 import Html from '../client/html'
 
 mongooseService.connect()
-
-const user = new User({
-  email: 'admin@admin.com',
-  password: 'admin'
-})
-user.save()
 
 const Root = () => ''
 
@@ -43,18 +41,29 @@ const server = express()
 
 const middleware = [
   cors(),
+  passport.initialize(),
   express.static(path.resolve(__dirname, '../dist/assets')),
   bodyParser.urlencoded({ limit: '50mb', extended: true, parameterLimit: 50000 }),
   bodyParser.json({ limit: '50mb', extended: true }),
   cookieParser()
 ]
 
+passport.use('jwt', passportJWT.jwt)
+
 middleware.forEach((it) => server.use(it))
 
-server.post('/api/v1/auth', (req, res) => {
-  // eslint-disable-next-line no-console
+server.post('/api/v1/auth', async (req, res) => {
   console.log(req.body)
-  res.json({ status: 'ok' })
+  try {
+    const user = await User.findAndValidateUser(req.body)
+
+    const payload = { uid: user.id }
+    const token = jwt.sign(payload, config.secret, { expiresIn: '48h' })
+    res.json({ status: 'ok', token })
+  } catch (err) {
+    console.log(err)
+    res.json({ status: 'error', err })
+  }
 })
 
 server.use('/api/', (req, res) => {
