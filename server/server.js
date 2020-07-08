@@ -8,10 +8,17 @@ import React from 'react'
 
 import cookieParser from 'cookie-parser'
 import mongooseService from './services/mongoose'
+import User from './model/user.model'
 import config from './config'
 import Html from '../client/html'
 
 mongooseService.connect()
+
+const user = new User({
+  email: 'admin@admin.com',
+  password: 'admin'
+})
+user.save()
 
 const Root = () => ''
 
