@@ -7,8 +7,11 @@ import { renderToStaticNodeStream } from 'react-dom/server'
 import React from 'react'
 
 import cookieParser from 'cookie-parser'
+import mongooseService from './services/mongoose'
 import config from './config'
 import Html from '../client/html'
+
+mongooseService.connect()
 
 const Root = () => ''
 
