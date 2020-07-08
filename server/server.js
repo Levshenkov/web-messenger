@@ -41,6 +41,12 @@ const middleware = [
 
 middleware.forEach((it) => server.use(it))
 
+server.post('/api/v1/auth', (req, res) => {
+  // eslint-disable-next-line no-console
+  console.log(req.body)
+  res.json({ status: 'ok' })
+})
+
 server.use('/api/', (req, res) => {
   res.status(404)
   res.end()
