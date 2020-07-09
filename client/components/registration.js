@@ -36,7 +36,7 @@ const Registeration = () => {
               name="password"
               type="password"
               value={password}
-              placeholder="******************"
+              placeholder="Password"
               onChange={(e) => {
                 dispatch(updatePasswordField(e.target.value))
               }}

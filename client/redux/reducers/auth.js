@@ -6,6 +6,7 @@ const UPDATE_LOGIN = 'UPDATE_LOGIN'
 const UPDATE_PASSWORD = 'UPDATE_PASSWORD'
 const LOGIN = 'LOGIN'
 const CREATE_NEW_USER = 'CREATE_NEW_USER'
+const CLEAR_FORM = 'CLEAR_FORM'
 
 const cookies = new Cookies()
 const initialState = {
@@ -27,6 +28,9 @@ export default (state = initialState, action) => {
 
     case UPDATE_PASSWORD: {
       return { ...state, password: action.password }
+    }
+    case CLEAR_FORM: {
+      return { ...state, password: '' }
     }
     default:
       return state
@@ -78,7 +82,13 @@ export function signUp() {
       .then((r) => r.json())
       .then(() => {
         dispatch({ type: CREATE_NEW_USER })
+        // window.location.href = '/login'
         history.push('/login')
+        dispatch({ type: CLEAR_FORM })
       })
   }
+}
+
+export function clearForm() {
+  return { type: CLEAR_FORM }
 }

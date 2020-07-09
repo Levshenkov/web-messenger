@@ -1,6 +1,6 @@
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { updateLoginField, updatePasswordField, signIn } from '../redux/reducers/auth'
+import { updateLoginField, updatePasswordField, signIn, clearForm } from '../redux/reducers/auth'
 import { history } from '../redux'
 
 const LoginForm = () => {
@@ -37,7 +37,7 @@ const LoginForm = () => {
               name="password"
               type="password"
               value={password}
-              placeholder="******************"
+              placeholder="Password"
               onChange={(e) => {
                 dispatch(updatePasswordField(e.target.value))
               }}
@@ -57,6 +57,7 @@ const LoginForm = () => {
               className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
               type="button"
               onClick={() => {
+                dispatch(clearForm())
                 history.push('/registration')
               }}
             >
