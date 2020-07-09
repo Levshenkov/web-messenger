@@ -1,10 +1,17 @@
+import Cookies from 'universal-cookie'
+
+import { history } from '..'
+
 const UPDATE_LOGIN = 'UPDATE_LOGIN'
 const UPDATE_PASSWORD = 'UPDATE_PASSWORD'
 const LOGIN = 'LOGIN'
 
+const cookies = new Cookies()
 const initialState = {
   email: '',
-  password: ''
+  password: '',
+  token: cookies.get('token'),
+  user: {}
 }
 
 export default (state = initialState, action) => {
@@ -12,6 +19,11 @@ export default (state = initialState, action) => {
     case UPDATE_LOGIN: {
       return { ...state, email: action.email }
     }
+
+    case LOGIN: {
+      return { ...state, token: action.token, password: '', user: action.user }
+    }
+
     case UPDATE_PASSWORD: {
       return { ...state, password: action.password }
     }
@@ -30,20 +42,21 @@ export function updatePasswordField(password) {
 
 export function signIn() {
   return (dispatch, getState) => {
-    const { login, password } = getState().auth
+    const { email, password } = getState().auth
     fetch('/api/v1/auth', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-        login,
+        email,
         password
       })
     })
       .then((r) => r.json())
       .then((data) => {
-        dispatch({ type: LOGIN, token: data.token })
+        dispatch({ type: LOGIN, token: data.token, user: data.user })
+        history.push('/private')
       })
   }
 }
