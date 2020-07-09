@@ -8,7 +8,8 @@ import { Provider, useSelector } from 'react-redux'
 import store, { history } from '../redux'
 
 import Home from '../components/home'
-import DummyView from '../components/dummy-view'
+import LoginForm from '../components/loginform'
+import Registration from '../components/registration'
 import NotFound from '../components/404'
 import Private from '../components/private'
 
@@ -74,11 +75,10 @@ const RootComponent = (props) => {
       <RouterSelector history={history} location={props.location} context={props.context}>
         <Startup>
           <Switch>
-            <OnlyAnonymousRoute exact path="/login" component={() => <Home />} />
-            <Route exact path="/" component={() => <DummyView />} />
-            <Route exact path="/dashboard" component={() => <Home />} />
+            <OnlyAnonymousRoute exact path="/registration" component={() => <Registration />} />
+            <OnlyAnonymousRoute exact path="/login" component={() => <LoginForm />} />
+            <PrivateRoute exact path="/*" component={() => <Home />} />
             <PrivateRoute exact path="/private" component={() => <Private />} />
-            <PrivateRoute exact path="/hidden-route" component={() => <DummyView />} />
             <Route component={() => <NotFound />} />
           </Switch>
         </Startup>

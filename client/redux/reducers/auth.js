@@ -5,6 +5,7 @@ import { history } from '..'
 const UPDATE_LOGIN = 'UPDATE_LOGIN'
 const UPDATE_PASSWORD = 'UPDATE_PASSWORD'
 const LOGIN = 'LOGIN'
+const CREATE_NEW_USER = 'CREATE_NEW_USER'
 
 const cookies = new Cookies()
 const initialState = {
@@ -57,6 +58,27 @@ export function signIn() {
       .then((data) => {
         dispatch({ type: LOGIN, token: data.token, user: data.user })
         history.push('/private')
+      })
+  }
+}
+
+export function signUp() {
+  return (dispatch, getState) => {
+    const { email, password } = getState().auth
+    fetch('/api/v1/registration', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        email,
+        password
+      })
+    })
+      .then((r) => r.json())
+      .then(() => {
+        dispatch({ type: CREATE_NEW_USER })
+        history.push('/login')
       })
   }
 }

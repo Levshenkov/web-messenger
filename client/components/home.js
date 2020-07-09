@@ -1,12 +1,11 @@
 import React from 'react'
 import Head from './head'
-import LoginForm from './loginform'
 
 const Home = () => {
   return (
     <div>
       <Head title="Log In" />
-      <LoginForm />
+      Home component
     </div>
   )
 }

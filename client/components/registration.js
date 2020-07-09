@@ -1,9 +1,8 @@
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { updateLoginField, updatePasswordField, signIn } from '../redux/reducers/auth'
-import { history } from '../redux'
+import { updateLoginField, updatePasswordField, signUp } from '../redux/reducers/auth'
 
-const LoginForm = () => {
+const Registeration = () => {
   const dispatch = useDispatch()
   const login = useSelector((s) => s.auth.login)
   const password = useSelector((s) => s.auth.password)
@@ -48,19 +47,10 @@ const LoginForm = () => {
               className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
               type="button"
               onClick={() => {
-                dispatch(signIn())
+                dispatch(signUp())
               }}
             >
-              Sign In
-            </button>
-            <button
-              className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-              type="button"
-              onClick={() => {
-                history.push('/registration')
-              }}
-            >
-              Sign Up
+              Registeration
             </button>
           </div>
         </form>
@@ -69,4 +59,4 @@ const LoginForm = () => {
   )
 }
 
-export default LoginForm
+export default Registeration
