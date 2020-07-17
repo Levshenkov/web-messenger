@@ -1,13 +1,18 @@
 import React from 'react'
-import Head from './head'
+import Sidebar from './Chatdesign/Sidebar'
+import Topbar from './Chatdesign/Topbar'
+import Sendbar from './Chatdesign/Sendbar'
+import Messages from './Chatdesign/Messages'
 
 const Dummy = () => {
   return (
-    <div>
-      <Head />
-      <div className="flex items-center justify-center h-screen">
-        <div className="bg-indigo-800 hover:text-red-500 text-white font-bold rounded-lg border shadow-lg p-10">
-          This is dummy component
+    <div className="w-full border shadow">
+      <div className="flex">
+        <Sidebar />
+        <div className="w-full flex flex-col">
+        <Topbar />
+        <Messages />
+        <Sendbar />
         </div>
       </div>
     </div>

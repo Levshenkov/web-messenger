@@ -14,6 +14,8 @@ import NotFound from '../components/404'
 import Private from '../components/private'
 
 import Startup from './startup'
+import DummyView from '../components/dummy-view'
+import Slack from '../components/Chatdesign/Slack'
 
 const OnlyAnonymousRoute = ({ component: Component, ...rest }) => {
   const func = (props) =>
@@ -77,6 +79,8 @@ const RootComponent = (props) => {
           <Switch>
             <OnlyAnonymousRoute exact path="/registration" component={() => <Registration />} />
             <OnlyAnonymousRoute exact path="/login" component={() => <LoginForm />} />
+            <Route exact path="/" component={() => <DummyView />} />
+            <Route exact path="/slack" component={() => <Slack />} />
             <PrivateRoute exact path="/*" component={() => <Home />} />
             <PrivateRoute exact path="/private" component={() => <Private />} />
             <Route component={() => <NotFound />} />
