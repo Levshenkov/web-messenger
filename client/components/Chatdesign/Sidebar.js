@@ -24,7 +24,7 @@ const Sidebar = () => {
       </div>
 
       <div className="px-4 mb-2 font-sans">Channels</div>
-      <div className="bg-green-300 mb-6 py-1 px-4 text-white font-semi-bold ">
+      <div className="mb-6 py-1 px-4 text-gray-900 font-semi-bold ">
         {channels.map((channelName) => {
           return (
             <button
@@ -59,8 +59,6 @@ const Sidebar = () => {
         <span className="border rounded-full block w-2 h-2 mr-2" />
         <span className="text-purple-lightest">killgt</span>
       </div>
-
-      <div className="px-4 mb-3 font-sans">Applications</div>
     </div>
   )
 }

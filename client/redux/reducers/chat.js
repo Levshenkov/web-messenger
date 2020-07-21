@@ -1,4 +1,4 @@
-import { getSocket } from '..'
+// import { getSocket } from '..'
 
 const SEND_MESSAGE_TO_THE_CHANNEL = 'SEND_MESSAGE_TO_THE_CHANNEL'
 const SET_CURRENT_CHANNEL = 'SET_CURRENT_CHANNEL'
@@ -8,9 +8,9 @@ const initialState = {
   channels: [
     'reduxTears',
     'bucketForTears',
-    'iHateJavascript',
+    'i<3Javascript',
     'neverPromiseAgain',
-    'makeStackoverflowGreatAgain'
+    'StackoverflowGreatAgain'
   ],
   messages: {},
   users: []
@@ -63,22 +63,20 @@ export default (state = initialState, action) => {
   }
 }
 
-export function sendMesage(message) {
+export function sendMessage(message) {
   return (dispatch, getState) => {
     const store = getState()
     const { currentChannel } = store.chat
     const { email } = store.auth.user
 
-    getSocket().send(
-      JSON.stringify({
-        type: SEND_MESSAGE_TO_THE_CHANNEL,
-        id: +new Date(),
-        message,
-        currentChannel,
-        email,
-        time: +new Date()
-      })
-    )
+    dispatch({
+      type: SEND_MESSAGE_TO_THE_CHANNEL,
+      id: +new Date(),
+      message,
+      currentChannel,
+      email,
+      time: +new Date()
+    })
   }
 }
 
