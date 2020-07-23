@@ -1,4 +1,4 @@
-// import { getSocket } from '..'
+import { getSocket } from '..'
 
 const SEND_MESSAGE_TO_THE_CHANNEL = 'SEND_MESSAGE_TO_THE_CHANNEL'
 const SET_CURRENT_CHANNEL = 'SET_CURRENT_CHANNEL'
@@ -69,14 +69,16 @@ export function sendMessage(message) {
     const { currentChannel } = store.chat
     const { email } = store.auth.user
 
-    dispatch({
-      type: SEND_MESSAGE_TO_THE_CHANNEL,
-      id: +new Date(),
-      message,
-      currentChannel,
-      email,
-      time: +new Date()
-    })
+    getSocket().send(
+      JSON.stringify({
+        type: SEND_MESSAGE_TO_THE_CHANNEL,
+        id: +new Date(),
+        message,
+        currentChannel,
+        email,
+        time: +new Date()
+      })
+    )
   }
 }
 
