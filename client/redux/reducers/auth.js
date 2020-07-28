@@ -67,6 +67,7 @@ export function signIn() {
       .then((r) => r.json())
       .then((data) => {
         dispatch({ type: LOGIN, token: data.token, user: data.user })
+        getSocket().send(JSON.stringify({ type: 'SYSTEM_WELCOME', email: data.user.email }))
         history.push('/chat')
       })
   }

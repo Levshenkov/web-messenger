@@ -195,10 +195,8 @@ if (config.isSocketsEnabled) {
     conn.on('close', () => {
       connections = connections.filter((c) => c.readyState !== 3)
       const users = connections
-        // eslint-disable-next-line no-unused-vars
-        .filter((it) => typeof conn.userInfo !== 'undefined')
-        // eslint-disable-next-line no-unused-vars
-        .map((it) => conn.userInfo.email)
+        .filter((it) => typeof it.userInfo !== 'undefined')
+        .map((it) => it.userInfo.email)
 
       connections.forEach((c) => {
         c.write(JSON.stringify({ type: 'UPDATE_ALIVE_USERS', users }))
