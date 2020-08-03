@@ -20,6 +20,12 @@ const Sendbar = () => {
       </button>
       <input
         value={message}
+        onKeyDown={({ key }) => {
+          if (key === 'Enter') {
+            dispatch(sendMessage(message))
+            setMessage('')
+          }
+        }}
         onChange={({ target: { value } }) => setMessage(value)}
         type="text"
         className="w-full px-4"

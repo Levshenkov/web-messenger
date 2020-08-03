@@ -25,6 +25,12 @@ const Sidebar = () => {
         <input
           type="text"
           className=""
+          onKeyDown={({ key }) => {
+            if (key === 'Enter') {
+              dispatch(addNewChannel(`${newChannel}`))
+              setNewChannel('')
+            }
+          }}
           value={newChannel}
           onChange={({ target: { value } }) => {
             setNewChannel(value)
