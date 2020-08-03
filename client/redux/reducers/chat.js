@@ -1,8 +1,10 @@
 import { getSocket } from '..'
 
 const SEND_MESSAGE_TO_THE_CHANNEL = 'SEND_MESSAGE_TO_THE_CHANNEL'
+const ADD_NEW_CHANNEL = 'ADD_NEW_CHANNEL'
 const SET_CURRENT_CHANNEL = 'SET_CURRENT_CHANNEL'
 const UPDATE_ALIVE_USERS = 'UPDATE_ALIVE_USERS'
+
 const initialState = {
   currentChannel: '#reduxTears',
   channels: [
@@ -22,6 +24,12 @@ export default (state = initialState, action) => {
       return {
         ...state,
         currentChannel: action.name
+      }
+    }
+    case ADD_NEW_CHANNEL: {
+      return {
+        ...state,
+        channels: [...state.channels, action.name]
       }
     }
     case UPDATE_ALIVE_USERS: {
@@ -98,6 +106,13 @@ export function sendMesageToChannel({ message, id, channel, time, email }) {
 export function setCurrentChannel(name) {
   return {
     type: SET_CURRENT_CHANNEL,
+    name
+  }
+}
+
+export function addNewChannel(name) {
+  return {
+    type: ADD_NEW_CHANNEL,
     name
   }
 }
